@@ -10,29 +10,39 @@
 
 ## Usage
 
+Let the DOM be like:
+
+```html
+<div id="parentElement">
+  <span id="childElement">foo bar</span>
+</div>```
+
+
 ```js
-let insert-before = require('fd-insert-before')
-    , elem = require('fd-elem')
-    , insert-beforetoBody = insert-before(document.body);
+let insertBefore = require('fd-insert-before');
 
-let p = elem('p', 'Meow');
+let sp1 = elem("span","meow")
+,sp2 = document.getElementById("childElement")
+,parentDiv = sp2.parentNode
 
-insert-beforetoBody(p);
+insertBefore(parentDiv, sp1, sp2);
 
-assert.equal(document.body.lastChild.innerText, 'Meow'); // true.
+selectOne('#parentElement').children[0].innerText; // => 'meow'
 ```
 
 ## API
 
 ```
-insert-before :: parent -> child
+insert-before :: parent -> newChild -> refChild
 ```
 
 A curried function that takes in:
 
-* parent -> DOM element to which the child must be insert-beforeed.
+* parent The parent of the newly inserted node.
 
-* child  -> DOM element that needs to be insert-beforeed.
+* newChild The node to insert.
+
+* refChild The node before which newChild is inserted.
 
 
 
